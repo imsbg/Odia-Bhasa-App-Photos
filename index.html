@@ -263,6 +263,7 @@
         
         // --- State Variables ---
         let allImages = [];
+        const originalTitle = document.title; // --- ADDED: Store original title
 
         // --- Dynamic Population ---
         function populateStaticContent() {
@@ -341,10 +342,43 @@
             lightboxEl.classList.remove('active');
             document.body.classList.remove('modal-open');
             resetZoomAndPan();
+            // --- MODIFIED: Clean up URL and restore original title ---
             if (history.pushState) {
                 const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
                 window.history.pushState({path:cleanUrl},'',cleanUrl);
+                document.title = originalTitle;
+                // You could also restore original meta tags here if needed, but it's less critical
             }
+        };
+
+        // --- ADDED: Function to update meta tags and browser history ---
+        const updateMetaAndHistory = (imgData) => {
+            const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?img=${currentLightboxIndex}`;
+            const newTitle = `${imgData.title} | Odia Bhasa App Photos`;
+
+            // Update browser history and URL bar without reloading
+            if (history.pushState) {
+                window.history.pushState({path: newUrl}, '', newUrl);
+            }
+
+            // Update page title
+            document.title = newTitle;
+
+            // Update meta tags for SEO and social sharing (won't affect crawlers on initial load)
+            document.querySelector('meta[property="og:title"]').setAttribute('content', imgData.title);
+            document.querySelector('meta[property="twitter:title"]').setAttribute('content', imgData.title);
+            
+            const description = imgData.smalltext || imgData.description.substring(0, 150);
+            document.querySelector('meta[name="description"]').setAttribute('content', description);
+            document.querySelector('meta[property="og:description"]').setAttribute('content', description);
+            document.querySelector('meta[property="twitter:description"]').setAttribute('content', description);
+
+            document.querySelector('meta[property="og:image"]').setAttribute('content', imgData.url);
+            document.querySelector('meta[property="twitter:image"]').setAttribute('content', imgData.url);
+            
+            document.querySelector('meta[property="og:url"]').setAttribute('content', newUrl);
+            document.querySelector('meta[property="twitter:url"]').setAttribute('content', newUrl);
+            document.querySelector('link[rel="canonical"]').setAttribute('href', newUrl);
         };
         
         const updateLightboxContent = () => {
@@ -384,6 +418,7 @@
             lightboxEl.classList.remove('details-view-active');
             document.getElementById('lightbox-content').scrollTop = 0;
             resetZoomAndPan();
+            updateMetaAndHistory(imgData); // --- ADDED: Call the function to update everything
         };
         
         const checkUrlForImage = () => {
