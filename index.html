@@ -4,18 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Odia Bhasa App Photos - Gallery</title>
-    <meta name="description" content="A beautiful gallery of photos related to the Odia Bhasa App, showcasing the rich culture, heritage, and beauty of Odisha.">
+    <title>Odia Bhasa App Photos - Gallery | Kids Learning App</title>
+    <meta name="description" content="A beautiful gallery of photos related to the Odia Bhasa App, a kids learning app showcasing the rich culture, heritage, and beauty of Odisha.">
+    <meta name="author" content="Sandeep Biswal G">
+    <meta name="keywords" content="Odia, Bhasa, App, Odisha, Photos, Gallery, Culture, Heritage, Kids Learning, Odia Alphabet, Odia Language">
     <link rel="canonical" href="http://imsbg.github.io/Odia-Bhasa-App-Photos/">
     
-    <!-- Meta tags from previous versions included -->
+    <!-- Open Graph / Facebook (For Link Previews) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://imsbg.github.io/Odia-Bhasa-App-Photos/">
+    <meta property="og:title" content="Odia Bhasa App Photos - Gallery">
+    <meta property="og:description" content="A beautiful gallery of photos related to the Odia Bhasa App, a kids learning app.">
+    <meta property="og:image" content="https://imsbg.github.io/Odia-Bhasa-App-Photos/img/banner.png">
 
+    <!-- Twitter (For Link Previews) -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="http://imsbg.github.io/Odia-Bhasa-App-Photos/">
+    <meta property="twitter:title" content="Odia Bhasa App Photos - Gallery">
+    <meta property="twitter:description" content="A beautiful gallery of photos related to the Odia Bhasa App, a kids learning app.">
+    <meta property="twitter:image" content="https://imsbg.github.io/Odia-Bhasa-App-Photos/img/banner.png">
+    
     <style>
         :root {
             --primary-color: #00bfff;
             --background-color: #000000;
             --text-color: #e0e0e0;
-            --header-bg: rgba(10, 10, 10, 0.8);
+            --header-bg: rgba(20, 20, 20, 0.35);
             --card-bg: #1a1a1a;
             --border-radius: 12px;
         }
@@ -27,59 +41,102 @@
             background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
+            user-select: none;
+            -webkit-user-select: none;
         }
+        body.modal-open { overflow: hidden; }
 
         .site-background-container { position: fixed; inset: 0; z-index: -1; }
         .site-background {
             position: absolute; inset: 0;
             background-size: cover; background-position: center;
             filter: blur(50px) brightness(0.5); transform: scale(1.2);
-            transition: opacity 1s ease-in-out;
+            transition: opacity 1.5s ease-in-out;
             opacity: 0;
-            mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%);
         }
         .site-background.active { opacity: 1; }
 
-        /* --- Header & New SVG Button --- */
-        .site-header { background: var(--header-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 0.5rem 5%; position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; }
-        .site-title { font-size: 1.5rem; font-weight: 600; color: #fff; text-decoration: none; }
-        .main-nav ul { list-style: none; display: flex; gap: 1.5rem; align-items: center; }
-        .main-nav a { color: var(--text-color); text-decoration: none; font-weight: 500; transition: color 0.3s ease; }
-        .main-nav a:hover { color: var(--primary-color); }
-        #download-app-btn {
-            display: block;
+        /* --- Header --- */
+        .site-header {
+            background: var(--header-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 50px;
+            padding: 0.5rem 1rem 0.5rem 0.75rem;
+            margin: 1rem auto;
+            max-width: 95%;
+            width: fit-content;
+            transition: all 0.3s ease;
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .header-app-icon {
+            width: 40px;
             height: 40px;
-            transition: transform 0.2s ease;
+            border-radius: 10px;
+            margin-right: 12px;
         }
-        #download-app-btn:hover {
-            transform: scale(1.05);
-        }
-        .menu-toggle { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
-        .menu-toggle .bar { width: 25px; height: 3px; background-color: #fff; border-radius: 3px; transition: all 0.3s ease; }
-
+        .site-title { font-size: 1.5rem; font-weight: 600; color: #fff; }
+        .desktop-nav { display: none; } /* Hidden on mobile by default */
+        
         main { padding: 2rem 5%; position: relative; z-index: 1; }
+        .gallery-intro {
+            text-align: center;
+            max-width: 650px;
+            margin: 1rem auto 2.5rem auto;
+            color: #bbb;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
         h2 { text-align: center; margin-bottom: 2rem; color: #fff; font-weight: 600; }
 
-        /* Carousel and Gallery remain the same */
-        .carousel-wrapper { max-width: 900px; margin: auto; position: relative; }
-        .carousel-aspect-container { position: relative; width: 100%; transition: padding-bottom 0.5s ease-in-out; }
-        .carousel-container { position: absolute; inset: 0; user-select: none; }
-        .carousel-slides { display: flex; width: 100%; height: 100%; transition: transform 0.5s ease-in-out; }
-        .carousel-slide { flex: 0 0 100%; display: flex; justify-content: center; align-items: center; }
-        .carousel-slide img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: var(--border-radius); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .carousel-nav button { background: rgba(0, 0, 0, 0.4); border: none; color: #fff; font-size: 2rem; cursor: pointer; padding: 0.5rem 1rem; border-radius: 50%; transition: background 0.3s ease; position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;}
-        #carousel-prev { left: 10px; } #carousel-next { right: 10px; }
-        .carousel-dots { text-align: center; margin-top: 1.5rem; }
-        .dot { display: inline-block; width: 10px; height: 10px; margin: 0 5px; background-color: #555; border-radius: 50%; cursor: pointer; transition: background-color 0.3s ease, transform 0.3s ease; }
-        .dot.active { background-color: var(--primary-color); transform: scale(1.2); }
+        /* Gallery */
         .gallery-grid { column-count: 3; column-gap: 1.5rem; }
-        .gallery-item { margin-bottom: 1.5rem; break-inside: avoid; cursor: pointer; border-radius: var(--border-radius); background: var(--card-bg); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .gallery-item { margin-bottom: 1.5rem; break-inside: avoid; cursor: pointer; border-radius: var(--border-radius); background: var(--card-bg); transition: transform 0.3s ease, box-shadow 0.3s ease; display: inline-block; width: 100%; }
         .gallery-item:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 191, 255, 0.2); }
         .gallery-item img { width: 100%; height: auto; display: block; border-radius: var(--border-radius) var(--border-radius) 0 0; }
         .gallery-item .info { padding: 1rem; }
         .gallery-item .info h3 { font-size: 1.1rem; margin-bottom: 0.25rem; color: #fff; }
         .gallery-item .info p { font-size: 0.9rem; color: #aaa; }
+        
+        /* --- Footer --- */
+        .site-footer {
+            margin-top: 4rem;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+        .app-card {
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            background: linear-gradient(145deg, rgba(30, 30, 30, 0.5), rgba(45, 45, 45, 0.5));
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px;
+            padding: 1.5rem; width: 90%; max-width: 380px;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        }
+        .app-card .app-logo { width: 80px; height: 80px; border-radius: 18px; margin-bottom: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .app-card h3 { color: #fff; font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .app-card p { color: var(--text-color); font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.5; }
+        .app-card .download-btn { display: block; width: 150px; height: auto; transition: transform 0.2s ease; }
+        .app-card .download-btn:hover { transform: scale(1.05); }
+        .app-card .download-btn img { width: 100%; height: auto; }
+        .footer-nav ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 2rem; padding: 0; }
+        .footer-nav a { color: #aaa; text-decoration: none; transition: color 0.3s ease; }
+        .footer-nav a:hover { color: #fff; }
 
         /* --- Refined Lightbox --- */
         .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); display: none; z-index: 1000; }
@@ -90,103 +147,125 @@
         .lightbox-image.zoomed { cursor: move; }
         .lightbox-details-panel { background: #fff; color: #333; padding: 2rem; border-radius: 20px 20px 0 0; transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .lightbox-details-panel h3 { font-size: 2rem; margin-bottom: 1rem; color: #111; }
-        .lightbox-details-panel p { margin-bottom: 2rem; line-height: 1.7; font-size: 1.1rem; }
+        .lightbox-details-panel p { margin-bottom: 2rem; line-height: 1.7; font-size: 1.1rem; white-space: pre-wrap; }
         .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
         .meta-grid div { color: #555; }
         .meta-grid span { font-weight: bold; color: #111; display: block; margin-bottom: 0.25rem; }
-        .source-link { display: none; background: #222; color: #fff; text-decoration: none; padding: 1rem 1.5rem; border-radius: 8px; font-weight: bold; text-align: center; margin-top: 2rem; transition: transform 0.2s ease, background-color 0.2s ease; }
-        .source-link:hover { transform: scale(1.05); background-color: #000; }
+        .source-link, .share-button { display: block; background: #222; color: #fff; text-decoration: none; padding: 1rem 1.5rem; border-radius: 8px; font-weight: bold; text-align: center; margin-top: 1rem; transition: transform 0.2s ease, background-color 0.2s ease; cursor: pointer; border: none; font-size: 1rem; width: 100%; }
+        .source-link:hover, .share-button:hover { transform: scale(1.02); background-color: #000; }
+        .share-button { background-color: var(--primary-color); display: flex; justify-content: center; align-items: center; gap: 0.5rem; }
+        .share-button svg { width: 20px; height: 20px; fill: white; }
         .lightbox.details-view-active .lightbox-image { transform: scale(0.9); border-radius: var(--border-radius); max-height: 80vh; }
         .lightbox.details-view-active .lightbox-image-container { min-height: 90vh; }
         .lightbox.details-view-active .lightbox-details-panel { transform: translateY(0); }
-
-        /* Lightbox Controls & Fading Zoom */
-        .lightbox-button { position: fixed; background: rgba(20, 20, 20, 0.5); border: none; color: #fff; font-size: 2.5rem; cursor: pointer; padding: 0.5rem; transition: background 0.3s ease, opacity 0.3s ease; user-select: none; backdrop-filter: blur(5px); z-index: 1001;}
+        .lightbox-button { position: fixed; background: rgba(20, 20, 20, 0.5); border: none; color: #fff; font-size: 2.5rem; cursor: pointer; padding: 0.5rem; transition: all 0.3s ease; user-select: none; backdrop-filter: blur(5px); z-index: 1001;}
         .lightbox-close { top: 15px; right: 15px; line-height: 1; padding: 0.5rem 1rem; border-radius: 50%; }
         .lightbox-next, .lightbox-prev { top: 50%; transform: translateY(-50%); border-radius: 5px; }
         .lightbox-next { right: 15px; } .lightbox-prev { left: 15px; }
-        .lightbox-zoom-controls { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; background: rgba(20,20,20,0.5); backdrop-filter: blur(5px); border-radius: 5px; z-index: 1001; transition: opacity 0.4s ease, transform 0.4s ease; }
-        .lightbox-zoom-controls button { background: none; border: none; color: #fff; font-size: 1.5rem; padding: 0.5rem 1rem; cursor: pointer; }
-        .lightbox.details-view-active .lightbox-zoom-controls { opacity: 0; pointer-events: none; transform: translate(-50%, 20px); }
-
-        /* Interactive Minimap */
+        .lightbox.details-view-active .lightbox-next, .lightbox.details-view-active .lightbox-prev { opacity: 0; pointer-events: none; }
+        .lightbox-zoom-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; background: rgba(20,20,20,0.5); backdrop-filter: blur(5px); border-radius: 8px; z-index: 1001; transition: opacity 0.4s ease, transform 0.4s ease; padding: 0.5rem; }
+        .lightbox-zoom-controls { display: flex; }
+        .lightbox-zoom-controls button { background: none; border: none; color: #fff; font-size: 1.5rem; padding: 0.25rem 0.75rem; cursor: pointer; }
+        #zoom-slider { width: 150px; accent-color: var(--primary-color); }
+        .lightbox.details-view-active .lightbox-zoom-container { opacity: 0; pointer-events: none; transform: translate(-50%, 20px); }
         .minimap-container { position: fixed; top: 20px; right: 80px; width: 150px; height: 100px; border: 2px solid rgba(255,255,255,0.7); background: #000; z-index: 1002; overflow: hidden; display: none; cursor: crosshair; }
         .minimap-img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
         .minimap-viewport { position: absolute; border: 1px solid var(--primary-color); background: rgba(0, 191, 255, 0.3); pointer-events: none; }
 
         /* Responsive */
         @media (max-width: 1024px) { .gallery-grid { column-count: 2; } }
+        
+        @media (min-width: 769px) {
+            .desktop-nav {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .desktop-nav ul {
+                list-style: none;
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+            }
+            .desktop-nav a {
+                color: var(--text-color); text-decoration: none;
+                font-weight: 500; transition: all 0.3s ease;
+                padding: 0.5rem 1rem; border-radius: 30px;
+            }
+            .desktop-nav a:hover { color: #fff; background: rgba(255, 255, 255, 0.1); }
+            .site-header { padding-right: 1.5rem; } /* Restore padding when nav is present */
+            .footer-nav { display: none; } /* Hide footer links on desktop */
+        }
+        
         @media (max-width: 768px) {
-            .site-header { padding: 0.5rem 2.5%; }
-            .main-nav { position: fixed; top: 0; right: -100%; width: 70%; height: 100vh; background: #111; flex-direction: column; justify-content: center; align-items: center; transition: right 0.4s ease-in-out; }
-            .main-nav.active { right: 0; }
-            .main-nav ul { flex-direction: column; text-align: center; align-items: stretch; padding: 1rem; }
-            #download-app-btn { height: 50px; width: 150px; margin-top: 1rem; }
-            .main-nav li { margin: 1rem 0; }
-            .menu-toggle { display: flex; z-index: 101; }
-            .menu-toggle.active .bar:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
-            .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
-            .menu-toggle.active .bar:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
             .gallery-grid { column-count: 1; }
             .minimap-container { display: none !important; }
+            .lightbox-details-panel h3 { font-size: 1.5rem; }
+            .lightbox-details-panel p { font-size: 1rem; }
+            .site-title { font-size: 1.2rem; }
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
     <div class="site-background-container">
-        <div id="site-background-a" class="site-background"></div>
-        <div id="site-background-b" class="site-background"></div>
+        <div id="site-background" class="site-background"></div>
     </div>
 
-    <header class="site-header"></header>
+    <header class="site-header">
+        <a href="https://imsbg.github.io/odiabhasa/" class="header-content">
+            <img src="https://imsbg.github.io/odiabhasa/images/app.png" alt="Odia Bhasa App Icon" class="header-app-icon">
+            <span class="site-title">Odia Bhasa App</span>
+        </a>
+        <nav class="desktop-nav">
+             <ul>
+                <li><a href="https://imsbg.github.io/odiabhasa/">Main Website</a></li>
+                <li><a href="https://imsbg.github.io/odiabhasa/privacy-policy?od=">Privacy Policy</a></li>
+                <li><a href="https://imsbg.github.io/odiabhasa/terms?od=">Terms & Conditions</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <main>
-        <section id="carousel-section"><!-- Carousel will be populated here --></section>
         <section id="gallery-section">
-            <h2>All Images</h2>
+            <p class="gallery-intro">On this page, you will find a complete collection of images related to the Odia Bhasa App, from the official app banner to all our social media posts.</p>
+            <h2>Image Gallery</h2>
             <div class="gallery-grid" id="gallery-grid"></div>
         </section>
     </main>
 
-    <div class="lightbox" id="lightbox"><!-- Lightbox will be populated here --></div>
+    <footer class="site-footer">
+        <div class="app-card">
+            <img src="https://imsbg.github.io/odiabhasa/images/app.png" alt="Odia Bhasa App Logo" class="app-logo">
+            <h3>Odia Bhasa App</h3>
+            <p>Let’s come together and build the future of our mother tongue.</p>
+            <a href="https://play.google.com/store/apps/details?id=in.sandeep.odiabhasa" class="download-btn" target="_blank" rel="noopener noreferrer">
+                <img src="https://imsbg.github.io/Odia-Bhasa-App-Photos/img/google-play-badge-logo-svgrepo-com.svg" alt="Get it on Google Play">
+            </a>
+        </div>
+        <nav class="footer-nav">
+            <ul>
+               <li><a href="https://imsbg.github.io/odiabhasa/">Main Website</a></li>
+               <li><a href="https://imsbg.github.io/odiabhasa/privacy-policy?od=">Privacy Policy</a></li>
+               <li><a href="https://imsbg.github.io/odiabhasa/terms?od=">Terms & Conditions</a></li>
+           </ul>
+       </nav>
+    </footer>
+
+    <div class="lightbox" id="lightbox"></div>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         // --- Element Selection ---
-        const bgA = document.getElementById('site-background-a'), bgB = document.getElementById('site-background-b');
-        const header = document.querySelector('.site-header');
-        const carouselSection = document.getElementById('carousel-section');
+        const siteBackground = document.getElementById('site-background');
         const galleryGrid = document.getElementById('gallery-grid');
         const lightboxEl = document.getElementById('lightbox');
         
         // --- State Variables ---
-        let allImages = [], carouselImages = [], currentCarouselIndex = 0, autoSlideInterval;
-        let activeBg = 'a';
+        let allImages = [];
 
         // --- Dynamic Population ---
         function populateStaticContent() {
-            header.innerHTML = `
-                <a href="https://imsbg.github.io/odiabhasa/" class="site-title">Odia Bhasa App</a>
-                <nav class="main-nav" id="main-nav"><ul>
-                    <li><a href="https://imsbg.github.io/odiabhasa/">Main Website</a></li>
-                    <li><a href="https://imsbg.github.io/odiabhasa/privacy-policy?od=">Privacy Policy</a></li>
-                    <li><a href="https://imsbg.github.io/odiabhasa/terms?od=">Terms & Conditions</a></li>
-                    <li><a href="https://play.google.com/store/apps/details?id=in.sandeep.odiabhasa" id="download-app-btn" target="_blank" rel="noopener noreferrer" aria-label="Download the App from Playstore">
-                        <svg viewBox="0 -47.5 135 135" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g><path d="M130 40H5c-2.8 0-5-2.2-5-5V5c0-2.8 2.2-5 5-5h125c2.8 0 5 2.2 5 5v30c0 2.8-2.2 5-5 5z"/><path fill="#a6a6a6" d="M130 .8c2.3 0 4.2 1.9 4.2 4.2v30c0 2.3-1.9 4.2-4.2 4.2H5C2.7 39.2.8 37.3.8 35V5C.8 2.7 2.7.8 5 .8h125m0-.8H5C2.2 0 0 2.3 0 5v30c0 2.8 2.2 5 5 5h125c2.8 0 5-2.2 5-5V5c0-2.7-2.2-5-5-5z"/><path d="M47.4 10.2c0 .8-.2 1.5-.7 2-.6.6-1.3.9-2.2.9-.9 0-1.6-.3-2.2-.9-.6-.6-.9-1.3-.9-2.2 0-.9.3-1.6.9-2.2.6-.6 1.3-.9 2.2-.9.4 0 .8.1 1.2.3.4.2.7.4.9.7l-.5.5c-.4-.5-.9-.7-1.6-.7-.6 0-1.2.2-1.6.7-.5.4-.7 1-.7 1.7s.2 1.3.7 1.7c.5.4 1 .7 1.6.7.7 0 1.2-.2 1.7-.7.3-.3.5-.7.5-1.2h-2.2v-.8h2.9v.4zM52 7.7h-2.7v1.9h2.5v.7h-2.5v1.9H52v.8h-3.5V7H52v.7zM55.3 13h-.8V7.7h-1.7V7H57v.7h-1.7V13zM59.9 13V7h.8v6h-.8zM64.1 13h-.8V7.7h-1.7V7h4.1v.7H64V13zM73.6 12.2c-.6.6-1.3.9-2.2.9-.9 0-1.6-.3-2.2-.9-.6-.6-.9-1.3-.9-2.2s.3-1.6.9-2.2c.6-.6 1.3-.9 2.2-.9.9 0 1.6.3 2.2.9.6.6.9 1.3.9 2.2 0 .9-.3 1.6-.9 2.2zm-3.8-.5c.4.4 1 .7 1.6.7.6 0 1.2-.2 1.6-.7.4-.4.7-1 .7-1.7s-.2-1.3-.7-1.7c-.4-.4-1-.7-1.6-.7-.6 0-1.2.2-1.6.7-.4.4-.7 1-.7 1.7s.2 1.3.7 1.7zM75.6 13V7h.9l2.9 4.7V7h.8v6h-.8l-3.1-4.9V13h-.7z" stroke="#ffffff" stroke-width=".2" stroke-miterlimit="10" fill="#fff"/><path d="M68.1 21.8c-2.4 0-4.3 1.8-4.3 4.3 0 2.4 1.9 4.3 4.3 4.3s4.3-1.8 4.3-4.3c0-2.6-1.9-4.3-4.3-4.3zm0 6.8c-1.3 0-2.4-1.1-2.4-2.6s1.1-2.6 2.4-2.6c1.3 0 2.4 1 2.4 2.6 0 1.5-1.1 2.6-2.4 2.6zm-9.3-6.8c-2.4 0-4.3 1.8-4.3 4.3 0 2.4 1.9 4.3 4.3 4.3s4.3-1.8 4.3-4.3c0-2.6-1.9-4.3-4.3-4.3zm0 6.8c-1.3 0-2.4-1.1-2.4-2.6s1.1-2.6 2.4-2.6c1.3 0 2.4 1 2.4 2.6 0 1.5-1.1 2.6-2.4 2.6zm-11.1-5.5v1.8H52c-.1 1-.5 1.8-1 2.3-.6.6-1.6 1.3-3.3 1.3-2.7 0-4.7-2.1-4.7-4.8s2.1-4.8 4.7-4.8c1.4 0 2.5.6 3.3 1.3l1.3-1.3c-1.1-1-2.5-1.8-4.5-1.8-3.6 0-6.7 3-6.7 6.6 0 3.6 3.1 6.6 6.7 6.6 2 0 3.4-.6 4.6-1.9 1.2-1.2 1.6-2.9 1.6-4.2 0-.4 0-.8-.1-1.1h-6.2zm45.4 1.4c-.4-1-1.4-2.7-3.6-2.7s-4 1.7-4 4.3c0 2.4 1.8 4.3 4.2 4.3 1.9 0 3.1-1.2 3.5-1.9l-1.4-1c-.5.7-1.1 1.2-2.1 1.2s-1.6-.4-2.1-1.3l5.7-2.4-.2-.5zm-5.8 1.4c0-1.6 1.3-2.5 2.2-2.5.7 0 1.4.4 1.6.9l-3.8 1.6zM82.6 30h1.9V17.5h-1.9V30zm-3-7.3c-.5-.5-1.3-1-2.3-1-2.1 0-4.1 1.9-4.1 4.3s1.9 4.2 4.1 4.2c1 0 1.8-.5 2.2-1h.1v.6c0 1.6-.9 2.5-2.3 2.5-1.1 0-1.9-.8-2.1-1.5l-1.6.7c.5 1.1 1.7 2.5 3.8 2.5 2.2 0 4-1.3 4-4.4V22h-1.8v.7zm-2.2 5.9c-1.3 0-2.4-1.1-2.4-2.6s1.1-2.6 2.4-2.6c1.3 0 2.3 1.1 2.3 2.6s-1 2.6-2.3 2.6zm24.4-11.1h-4.5V30h1.9v-4.7h2.6c2.1 0 4.1-1.5 4.1-3.9s-2-3.9-4.1-3.9zm.1 6h-2.7v-4.3h2.7c1.4 0 2.2 1.2 2.2 2.1-.1 1.1-.9 2.2-2.2 2.2zm11.5-1.8c-1.4 0-2.8.6-3.3 1.9l1.7.7c.4-.7 1-.9 1.7-.9 1 0 1.9.6 2 1.6v.1c-.3-.2-1.1-.5-1.9-.5-1.8 0-3.6 1-3.6 2.8 0 1.7 1.5 2.8 3.1 2.8 1.3 0 1.9-.6 2.4-1.2h.1v1h1.8v-4.8c-.2-2.2-1.9-3.5-4-3.5zm-.2 6.9c-.6 0-1.5-.3-1.5-1.1 0-1 1.1-1.3 2-1.3.8 0 1.2.2 1.7.4-.2 1.2-1.2 2-2.2 2zm10.5-6.6l-2.1 5.4h-.1l-2.2-5.4h-2l3.3 7.6-1.9 4.2h1.9l5.1-11.8h-2zm-16.8 8h1.9V17.5h-1.9V30z" fill="#fff"/><g><path d="M10.4 7.5c-.3.3-.4.8-.4 1.4V31c0 .6.2 1.1.5 1.4l.1.1L23 20.1v-.2L10.4 7.5z" fill="url(#a)"/><path d="M27 24.3l-4.1-4.1V19.9l4.1-4.1.1.1 4.9 2.8c1.4.8 1.4 2.1 0 2.9l-5 2.7z" fill="url(#b)"/><path d="M27.1 24.2L22.9 20 10.4 32.5c.5.5 1.2.5 2.1.1l14.6-8.4" fill="url(#c)"/><path d="M27.1 15.8L12.5 7.5c-.9-.5-1.6-.4-2.1.1L22.9 20l4.2-4.2z" fill="url(#d)"/><path d="M27 24.1l-14.5 8.2c-.8.5-1.5.4-2 0l-.1.1.1.1c.5.4 1.2.5 2 0L27 24.1z" opacity=".2"/><path d="M10.4 32.3c-.3-.3-.4-.8-.4-1.4v.1c0 .6.2 1.1.5 1.4v-.1h-.1zM32 21.3l-5 2.8.1.1 4.9-2.8c.7-.4 1-.9 1-1.4 0 .5-.4.9-1 1.3z" opacity=".12"/><path d="M12.5 7.6L32 18.7c.6.4 1 .8 1 1.3 0-.5-.3-1-1-1.4L12.5 7.5c-1.4-.8-2.5-.2-2.5 1.4V9c0-1.5 1.1-2.2 2.5-1.4z" opacity=".25" fill="#fff"/></g><defs><linearGradient id="a" gradientUnits="userSpaceOnUse" x1="21.8" y1="33.29" x2="5.017" y2="16.508" gradientTransform="matrix(1 0 0 -1 0 42)"><stop offset="0" stop-color="#00a0ff"/><stop offset="1" stop-color="#00e3ff"/></linearGradient><linearGradient id="b" gradientUnits="userSpaceOnUse" x1="33.834" y1="22" x2="9.637" y2="22" gradientTransform="matrix(1 0 0 -1 0 42)"><stop offset="0" stop-color="#ffe000"/><stop offset="1" stop-color="#ff9c00"/></linearGradient><linearGradient id="c" gradientUnits="userSpaceOnUse" x1="24.827" y1="19.704" x2="2.069" y2="-3.054" gradientTransform="matrix(1 0 0 -1 0 42)"><stop offset="0" stop-color="#ff3a44"/><stop offset="1" stop-color="#c31162"/></linearGradient><linearGradient id="d" gradientUnits="userSpaceOnUse" x1="7.297" y1="41.824" x2="17.46" y2="31.661" gradientTransform="matrix(1 0 0 -1 0 42)"><stop offset="0" stop-color="#32a071"/><stop offset="1" stop-color="#00f076"/></linearGradient></defs></g></svg>
-                    </a></li>
-                </ul></nav>
-                <div class="menu-toggle" id="menu-toggle"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>`;
-
-            carouselSection.innerHTML = `
-                <div class="carousel-wrapper">
-                    <div class="carousel-aspect-container" id="carousel-aspect-container">
-                        <div class="carousel-container" id="carousel-container"><div class="carousel-slides" id="carousel-slides"></div></div>
-                    </div>
-                    <div class="carousel-nav"><button id="carousel-prev">&lt;</button><button id="carousel-next">&gt;</button></div>
-                </div>
-                <div class="carousel-dots" id="carousel-dots"></div>`;
-
             lightboxEl.innerHTML = `
                 <div class="lightbox-content" id="lightbox-content">
                     <div class="lightbox-image-container"><img src="" alt="" class="lightbox-image" id="lightbox-image"></div>
@@ -194,87 +273,46 @@
                         <h3 id="lightbox-title"></h3><p id="lightbox-description"></p>
                         <div class="meta-grid" id="lightbox-meta"></div>
                         <a href="#" id="lightbox-source-link" class="source-link" target="_blank" rel="noopener noreferrer">View Original Post</a>
+                        <button id="share-button" class="share-button">
+                            <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 8.81C7.5 8.31 6.79 8 6 8c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+                            Share Image
+                        </button>
                     </div>
                 </div>
                 <button class="lightbox-button lightbox-close">&times;</button>
                 <button class="lightbox-button lightbox-prev">&lt;</button>
                 <button class="lightbox-button lightbox-next">&gt;</button>
-                <div class="lightbox-zoom-controls"><button id="zoom-in">+</button><button id="zoom-out">-</button></div>
+                <div class="lightbox-zoom-container">
+                    <input type="range" id="zoom-slider" min="1" max="5" step="0.1" value="1">
+                    <div class="lightbox-zoom-controls"><button id="zoom-out">-</button><button id="zoom-in">+</button></div>
+                </div>
                 <div class="minimap-container" id="minimap-container">
                     <img src="" id="minimap-img" class="minimap-img" alt="Minimap">
                     <div class="minimap-viewport" id="minimap-viewport"></div>
                 </div>`;
-            
-            // Re-attach menu toggle event listener after innerHTML rewrite
-            document.getElementById('menu-toggle').addEventListener('click', () => {
-                document.getElementById('menu-toggle').classList.toggle('active');
-                document.getElementById('main-nav').classList.toggle('active');
-            });
         }
         
         // --- Data Fetching & Initial Setup ---
         populateStaticContent();
-        fetch('images.json').then(res => res.json()).then(data => {
+        fetch('images.json').then(res => {
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            return res.json();
+        }).then(data => {
             allImages = data;
-            carouselImages = data.filter(img => img.carousel === 'yes');
-            if (carouselImages.length > 0) {
-                populateCarousel();
-                startAutoSlide();
-                addCarouselNavListeners();
-            } else {
-                carouselSection.style.display = 'none';
+            
+            if (allImages.length > 0) {
+                siteBackground.style.backgroundImage = `url(${allImages[0].url})`;
+                siteBackground.classList.add('active');
             }
+
             populateGallery();
             setupLightboxListeners();
-        }).catch(error => console.error('Error loading images.json:', error));
+            checkUrlForImage();
+        }).catch(error => {
+            console.error('Error loading or parsing images.json:', error);
+            galleryGrid.innerHTML = `<p style="text-align:center; color: #ff8a8a;">Could not load image gallery. Please check if 'images.json' exists and is formatted correctly.</p>`;
+        });
         
-        // --- Carousel Logic ---
-        const populateCarousel = () => {
-            const carouselSlides = document.getElementById('carousel-slides');
-            const carouselDotsContainer = document.getElementById('carousel-dots');
-            carouselImages.forEach((img, index) => {
-                carouselSlides.innerHTML += `<div class="carousel-slide"><img src="${img.url}" alt="${img.title}" loading="lazy"></div>`;
-                carouselDotsContainer.innerHTML += `<span class="dot" data-index="${index}"></span>`;
-            });
-            document.querySelectorAll('.dot').forEach(dot => dot.addEventListener('click', (e) => {
-                currentCarouselIndex = parseInt(e.target.dataset.index);
-                updateCarousel(); resetAutoSlide();
-            }));
-            updateCarousel();
-        };
-
-        const updateCarousel = () => {
-            if (carouselImages.length === 0) return;
-            const currentImage = carouselImages[currentCarouselIndex];
-            
-            // Fade background
-            const inactiveBgEl = (activeBg === 'a') ? bgB : bgA;
-            const activeBgEl = (activeBg === 'a') ? bgA : bgB;
-            inactiveBgEl.style.backgroundImage = `url(${currentImage.url})`;
-            inactiveBgEl.classList.add('active');
-            activeBgEl.classList.remove('active');
-            activeBg = (activeBg === 'a') ? 'b' : 'a';
-
-            // Auto-height
-            const img = new Image();
-            img.src = currentImage.url;
-            img.onload = () => {
-                const aspectRatio = (img.naturalHeight / img.naturalWidth) * 100;
-                document.getElementById('carousel-aspect-container').style.paddingBottom = `${aspectRatio}%`;
-            };
-
-            document.getElementById('carousel-slides').style.transform = `translateX(-${currentCarouselIndex * 100}%)`;
-            document.querySelectorAll('.dot').forEach((dot, i) => dot.classList.toggle('active', i === currentCarouselIndex));
-        };
-        
-        const changeSlide = (direction) => { currentCarouselIndex = (currentCarouselIndex + direction + carouselImages.length) % carouselImages.length; updateCarousel(); resetAutoSlide(); };
-        const startAutoSlide = () => { autoSlideInterval = setInterval(() => changeSlide(1), 5000); };
-        const resetAutoSlide = () => { clearInterval(autoSlideInterval); startAutoSlide(); };
-        const addCarouselNavListeners = () => {
-            document.getElementById('carousel-next').addEventListener('click', () => changeSlide(1));
-            document.getElementById('carousel-prev').addEventListener('click', () => changeSlide(-1));
-        };
-
         // --- Gallery Population ---
         const populateGallery = () => {
             galleryGrid.innerHTML = allImages.map((img, index) => `
@@ -291,13 +329,23 @@
         let currentLightboxIndex = 0, scale = 1, isDragging = false, startPos = {x:0, y:0}, translatePos = {x:0, y:0};
         
         const openLightbox = (index) => {
-            currentLightboxIndex = index;
-            updateLightboxContent();
-            lightboxEl.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            if (index >= 0 && index < allImages.length) {
+                currentLightboxIndex = index;
+                updateLightboxContent();
+                lightboxEl.classList.add('active');
+                document.body.classList.add('modal-open');
+            }
         };
 
-        const closeLightbox = () => { lightboxEl.classList.remove('active'); document.body.style.overflow = ''; resetZoomAndPan(); };
+        const closeLightbox = () => {
+            lightboxEl.classList.remove('active');
+            document.body.classList.remove('modal-open');
+            resetZoomAndPan();
+            if (history.pushState) {
+                const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                window.history.pushState({path:cleanUrl},'',cleanUrl);
+            }
+        };
         
         const updateLightboxContent = () => {
             const imgData = allImages[currentLightboxIndex];
@@ -317,17 +365,42 @@
             const sourceLink = document.getElementById('lightbox-source-link');
             sourceLink.style.display = imgData.source_url ? 'block' : 'none';
             if(imgData.source_url) sourceLink.href = imgData.source_url;
+
+            document.getElementById('share-button').onclick = async () => {
+                const shareUrl = `${window.location.origin}${window.location.pathname}?img=${currentLightboxIndex}`;
+                const shareData = { title: imgData.title, text: imgData.smalltext, url: shareUrl };
+
+                if (navigator.share) {
+                    try { await navigator.share(shareData); } catch (err) { console.error("Share failed:", err); }
+                } else {
+                    navigator.clipboard.writeText(shareUrl).then(() => {
+                        alert('Share link copied to clipboard!');
+                    }).catch(err => {
+                        console.error('Failed to copy text: ', err); alert('Could not copy link.');
+                    });
+                }
+            };
             
             lightboxEl.classList.remove('details-view-active');
             document.getElementById('lightbox-content').scrollTop = 0;
             resetZoomAndPan();
         };
         
+        const checkUrlForImage = () => {
+            const params = new URLSearchParams(window.location.search);
+            const imgId = params.get('img');
+            if (imgId !== null) {
+                const index = parseInt(imgId);
+                if (!isNaN(index) && index < allImages.length) openLightbox(index);
+            }
+        };
+
         const showNextImage = () => { currentLightboxIndex = (currentLightboxIndex + 1) % allImages.length; updateLightboxContent(); };
         const showPrevImage = () => { currentLightboxIndex = (currentLightboxIndex - 1 + allImages.length) % allImages.length; updateLightboxContent(); };
 
         const resetZoomAndPan = () => {
             scale = 1; translatePos = { x: 0, y: 0 };
+            document.getElementById('zoom-slider').value = 1;
             applyTransform();
             document.getElementById('lightbox-image').classList.remove('zoomed');
             document.getElementById('minimap-container').style.display = 'none';
@@ -338,49 +411,41 @@
             updateMinimap();
         };
 
+        const updateZoom = (newScale) => {
+            scale = Math.max(1, Math.min(5, newScale));
+            document.getElementById('zoom-slider').value = scale;
+            if (scale > 1) { document.getElementById('lightbox-image').classList.add('zoomed'); } 
+            else { resetZoomAndPan(); }
+            applyTransform();
+        };
+        
         const updateMinimap = () => {
             const minimapContainer = document.getElementById('minimap-container'), lightboxImage = document.getElementById('lightbox-image'), minimapViewport = document.getElementById('minimap-viewport');
             if (scale <= 1) { minimapContainer.style.display = 'none'; return; }
             minimapContainer.style.display = 'block';
-
-            const imgRect = lightboxImage.getBoundingClientRect();
-            const containerRect = minimapContainer.getBoundingClientRect();
-
-            const wRatio = containerRect.width / (imgRect.width * scale);
-            const hRatio = containerRect.height / (imgRect.height * scale);
-
-            minimapViewport.style.width = `${window.innerWidth * wRatio}px`;
-            minimapViewport.style.height = `${window.innerHeight * hRatio}px`;
-            minimapViewport.style.left = `${-translatePos.x * wRatio}px`;
-            minimapViewport.style.top = `${-translatePos.y * hRatio}px`;
+            const imgRect = lightboxImage.getBoundingClientRect(); const containerRect = minimapContainer.getBoundingClientRect();
+            const wRatio = containerRect.width / imgRect.width; const hRatio = containerRect.height / imgRect.height;
+            minimapViewport.style.width = `${window.innerWidth * wRatio}px`; minimapViewport.style.height = `${window.innerHeight * hRatio}px`;
+            minimapViewport.style.left = `${-translatePos.x * wRatio}px`; minimapViewport.style.top = `${-translatePos.y * hRatio}px`;
         };
-        
+
         const moveImageViaMinimap = (e) => {
-            const minimapContainer = document.getElementById('minimap-container'), lightboxImage = document.getElementById('lightbox-image');
-            const mapRect = minimapContainer.getBoundingClientRect();
-            const imgRect = lightboxImage.getBoundingClientRect();
-
-            const clickX = e.clientX - mapRect.left;
-            const clickY = e.clientY - mapRect.top;
-            
-            const percentX = clickX / mapRect.width;
-            const percentY = clickY / mapRect.height;
-            
-            const maxPanX = imgRect.width * scale - window.innerWidth;
-            const maxPanY = imgRect.height * scale - window.innerHeight;
-
-            translatePos.x = -maxPanX * percentX;
-            translatePos.y = -maxPanY * percentY;
-            
-            // Clamp values
-            translatePos.x = Math.max(-maxPanX, Math.min(0, translatePos.x));
-            translatePos.y = Math.max(-maxPanY, Math.min(0, translatePos.y));
-            
+            const minimapContainer = document.getElementById('minimap-container'); const mapRect = minimapContainer.getBoundingClientRect();
+            const clickX = e.clientX - mapRect.left; const clickY = e.clientY - mapRect.top;
+            const percentX = clickX / mapRect.width; const percentY = clickY / mapRect.height;
+            const contentWidth = document.getElementById('lightbox-image').offsetWidth * scale; const contentHeight = document.getElementById('lightbox-image').offsetHeight * scale;
+            const maxPanX = contentWidth - window.innerWidth; const maxPanY = contentHeight - window.innerHeight;
+            translatePos.x = -maxPanX * percentX; translatePos.y = -maxPanY * percentY;
+            translatePos.x = Math.max(-maxPanX, Math.min(0, translatePos.x)); translatePos.y = Math.max(-maxPanY, Math.min(0, translatePos.y));
             applyTransform();
         };
-        
-        // --- Setup Event Listeners ---
+
         function setupLightboxListeners() {
+            const lightboxImage = document.getElementById('lightbox-image');
+            const zoomSlider = document.getElementById('zoom-slider');
+            const minimapContainer = document.getElementById('minimap-container');
+            let isMinimapDragging = false;
+            
             document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
             document.querySelector('.lightbox-next').addEventListener('click', showNextImage);
             document.querySelector('.lightbox-prev').addEventListener('click', showPrevImage);
@@ -388,21 +453,23 @@
                 lightboxEl.classList.toggle('details-view-active', document.getElementById('lightbox-content').scrollTop > 50);
             });
             
-            // Zoom & Pan Listeners
-            const lightboxImage = document.getElementById('lightbox-image');
-            document.getElementById('zoom-in').addEventListener('click', () => { scale = Math.min(scale + 0.5, 5); lightboxImage.classList.add('zoomed'); applyTransform(); });
-            document.getElementById('zoom-out').addEventListener('click', () => { scale = Math.max(scale - 0.5, 1); if (scale === 1) resetZoomAndPan(); else applyTransform(); });
-            lightboxImage.addEventListener('mousedown', e => { if (scale > 1) { isDragging = true; startPos = { x: e.clientX - translatePos.x, y: e.clientY - translatePos.y }; } });
+            document.getElementById('zoom-in').addEventListener('click', () => updateZoom(scale + 0.5));
+            document.getElementById('zoom-out').addEventListener('click', () => updateZoom(scale - 0.5));
+            zoomSlider.addEventListener('input', () => updateZoom(parseFloat(zoomSlider.value)));
+            lightboxImage.addEventListener('mousedown', e => { if (scale > 1) { isDragging = true; startPos = { x: e.clientX - translatePos.x, y: e.clientY - translatePos.y }; e.preventDefault(); } });
             window.addEventListener('mousemove', e => { if (isDragging) { translatePos.x = e.clientX - startPos.x; translatePos.y = e.clientY - startPos.y; applyTransform(); } });
             window.addEventListener('mouseup', () => { isDragging = false; });
-            
-            // Minimap Interaction
-            const minimapContainer = document.getElementById('minimap-container');
-            let isMinimapDragging = false;
             minimapContainer.addEventListener('mousedown', e => { isMinimapDragging = true; moveImageViaMinimap(e); });
             window.addEventListener('mousemove', e => { if (isMinimapDragging) moveImageViaMinimap(e); });
             window.addEventListener('mouseup', () => { isMinimapDragging = false; });
         }
+
+        // --- Disable Right-Click & Inspect Element ---
+        document.addEventListener('keydown', e => {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) || (e.metaKey && e.altKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) || (e.ctrlKey && e.key.toUpperCase() === 'U')) {
+                e.preventDefault();
+            }
+        });
     });
     </script>
 </body>
